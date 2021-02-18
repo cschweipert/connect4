@@ -58,7 +58,7 @@ function makeHtmlBoard() {
       let cell = document.createElement('td');
       // TODO: add an id, y-x, to the above table cell element
       // you'll use this later, so make sure you use y-x
-      cell.setAttribute('id', `${y} - ${x}`);
+      cell.setAttribute('id', `${y}-${x}`);
       // TODO: append the table cell to the table row
       row.append(cell);
     }
@@ -78,6 +78,13 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  console.log("x and y", x, y);
+  let gamePiece = document.createElement("div");
+  gamePiece.classList.add("piece", "p1");
+  console.log("gamepiece", gamePiece);
+
+  let pieceSquare = document.getElementById(`${y}-${x}`);
+  pieceSquare.append(gamePiece);
 }
 
 /** endGame: announce game end */
