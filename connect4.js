@@ -23,10 +23,9 @@ function makeBoard(HEIGHT, WIDTH) {
     let newRow = [];
     for (let j = 0; j < WIDTH; j++) {
       newRow.push(null);
-      board.push(newRow)
     }
+    board.push(newRow);
   }
-  return board;
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -40,8 +39,8 @@ function makeHtmlBoard() {
   top.addEventListener("click", handleClick);
 
   // create table head cell and give it id x
-  for (var x = 0; x < WIDTH; x++) {
-    var headCell = document.createElement("td");
+  for (let x = 0; x < WIDTH; x++) {
+    const headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
@@ -59,7 +58,7 @@ function makeHtmlBoard() {
       let cell = document.createElement('td');
       // TODO: add an id, y-x, to the above table cell element
       // you'll use this later, so make sure you use y-x
-      cell.setAttribute('id', y-x);
+      cell.setAttribute('id', `${y} - ${x}`);
       // TODO: append the table cell to the table row
       row.append(cell);
     }
