@@ -85,15 +85,21 @@ function findSpotForCol(x) {
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
   let gamePiece = document.createElement("div");
-  gamePiece.classList.add("piece", "p1");
+  if(currPlayer === 1) {
+    gamePiece.classList.add("piece", "p1");
+  } else {
+    gamePiece.classList.add("piece", "p2");
+  }
   let pieceSquare = document.getElementById(`${y}-${x}`);
   pieceSquare.append(gamePiece);
+  
 }
 
 /** endGame: announce game end */
 
 function endGame(msg) {
   // TODO: pop up alert message
+  alert(msg);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -122,7 +128,7 @@ function handleClick(evt) {
   // TODO: check if all cells in board are filled; if so call, call endGame
   for (let i = 0; i < board.length; i++){
     if(board[i].every(column => column !== null)){
-      endGame();
+      endGame("It's a tie!");
     }
   }
   
