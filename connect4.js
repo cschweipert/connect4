@@ -17,7 +17,7 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
  *    board = array of rows, each row is array of cells  (board[y][x])
  */
 
-function makeBoard(HEIGHT, WIDTH) {
+function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   for (let i = 0; i < HEIGHT; i++) {
     let newRow = [];
@@ -70,19 +70,22 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  //TODO: write the real version of this, rather than always returning 0
+  for (let i = HEIGHT - 1; i >= 0 ; i--){
+    let yTemp = board[i][x];
+    if(yTemp === null){
+      return i;
+    }
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
-  console.log("x and y", x, y);
   let gamePiece = document.createElement("div");
   gamePiece.classList.add("piece", "p1");
-  console.log("gamepiece", gamePiece);
-
   let pieceSquare = document.getElementById(`${y}-${x}`);
   pieceSquare.append(gamePiece);
 }
@@ -97,15 +100,16 @@ function endGame(msg) {
 
 function handleClick(evt) {
   // get x from ID of clicked cell
-  var x = +evt.target.id;
+  let x = +evt.target.id;
 
   // get next spot in column (if none, ignore click)
-  var y = findSpotForCol(x);
+  let y = findSpotForCol(x);
   if (y === null) {
     return;
   }
 
   // place piece in board and add to HTML table
+  board[y][x] = currPlayer;
   // TODO: add line to update in-memory board
   placeInTable(y, x);
 
@@ -116,9 +120,16 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+  for (let i = 0; i < board.length; i++){
+    if(board[i].every(column => column !== null)){
+      endGame();
+    }
+  }
+  
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  currPlayer === 1 ? currPlayer = 2 : currPlayer = 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
