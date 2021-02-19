@@ -126,10 +126,8 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-  for (let i = 0; i < board.length; i++) {
-    if (board[i].every(column => column !== null)) {
-      endGame("It's a tie!");
-    }
+  if (board.every(row => row.every(cell => cell !== null))) {
+    endGame("It's a tie!");
   }
 
 
@@ -150,14 +148,15 @@ function checkForWin() {
   function _win(cells) {
     // TODO: Check four cells to see if they're all legal & all color of current
     // player
-    for (let i = 0; i < cells.length; i++) {
-      let coordinates = cells[i];
-      let color = board[cells[0][0]];
+    for (let cell of cells) {
+      let [y, x] = cell; 
 
-      if (cells[i][0] >= 0 && cells[i][0] <= 5 && cells[i][1] >= 0 && cells[i][1] <= 6) {
-        if (board[coordinates] !== color) {
+      if (y >= 0 && y <= 5 && x >= 0 && x <= 6){
+        if (board[y][x] !== currPlayer) {
           return false
         }
+      } else {
+        return false;
       }
     }
     return true;
